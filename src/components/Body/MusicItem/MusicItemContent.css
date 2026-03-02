@@ -1,0 +1,80 @@
+.music-items-container {
+    display: flex;
+    flex-direction: column;
+
+    background-color: hsl(0, 0%, 20%);
+    border-radius: 20px;
+    margin: 10px;
+
+    flex: 1 0 800px;
+}
+
+.music-items-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.music-items-box button {
+    background-color: inherit;
+    color: white;
+
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
+
+.music-items-box button:hover {
+    background-color: hsl(0, 0%, 24%);
+}
+
+.custom-playlist-editer-box {
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+}
+
+.custom-playlist-editer-box p {
+    margin: 10px 0 10px 10px;
+}
+
+.custom-playlist-editer-name {
+    outline: none;
+    border: 0;
+    margin: 0 10px 10px 10px;
+
+    font-size: 24px;
+    background-color: hsl(0, 0%, 24%);;
+    color: white;
+}
+
+.custom-playlist-editer-items {
+    align-items: start;
+
+    margin: 4px 10px;
+}
+
+.custom-playlist-editer-btn-box {
+    align-self: end;
+}
+
+.sort-config-box {
+    margin: 8px;
+}
+
+.sort-type {
+    margin-right: 5px;
+
+    border-radius: 8px;
+    background: inherit;
+    color: white;
+    padding: 10px;
+}
+
+.sort-type option {
+    background-color: hsl(0, 0%, 20%);
+}
+
+.sort-order {
+    background-color: inherit;
+    color: hsl(0, 0%, 60%);
+}

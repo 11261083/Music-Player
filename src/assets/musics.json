@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "Spring - 1. Movement - Allegro",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1718",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-01-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Spring-Mvt-1-Allegro.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.pn"
+    },
+    {
+        "id": 2,
+        "name": "Spring - 2. Movement - Adagio",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1719",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-02-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Spring-Mvt-2-Largo.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 3,
+        "name": "Spring - 3. Movement - Allegro pastorale",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1720",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-03-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Spring-Mvt-3-Allegro-pastorale.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 4,
+        "name": "Summer - 1. Movement - Allegro non molto",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1718",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-04-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Summer-Mvt-1-Allegro-non-molto.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 5,
+        "name": "Summer - 2. Movement - Adagio",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1719",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-05-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Summer-Mvt-2-Adagio.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 6,
+        "name": "Summer - 3. Movement - Presto",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1720",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-06-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Summer-Mvt-3-Presto.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 7,
+        "name": "Autumn - 1. Movement - Allegro",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1718",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-07-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Autumn-Mvt-1-Allegro.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 8,
+        "name": "Autumn - 2. Movement - Adagio molto",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1719",
+        "url": "/musics/08+John+Harrison+with+the+Wichita+State+University+Chamber+Players+-+Autumn+Mvt+2+Adagio+molto.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 9,
+        "name": "Autumn - 3. Movement - Allegro",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1720",
+        "url": "/musics/09+John+Harrison+with+the+Wichita+State+University+Chamber+Players+-+Autumn+Mvt+3+Allegro.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 10,
+        "name": "Winter - 1. Movement - Allegro non molto",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1718",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-10-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Winter-Mvt-1-Allegro-non-molto.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 11,
+        "name": "Winter - 2. Movement - Largo",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1719",
+        "url": "/musics/Classicals.de-Vivaldi-The-Four-Seasons-11-John-Harrison-with-the-Wichita-State-University-Chamber-Players-Winter-Mvt-2-Largo.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    },
+    {
+        "id": 12,
+        "name": "Winter - 3. Movement - Allegro",
+        "artist": "John Harrison",
+        "composer": "Vivaldi",
+        "album": "The Four Seasons",
+        "released": "1720",
+        "url": "/musics/12+John+Harrison+with+the+Wichita+State+University+Chamber+Players+-+Winter+Mvt+3+Allegro.mp3",
+        "poster": "/poster/the-four-sesons.vivaldi.png"
+    }
+]

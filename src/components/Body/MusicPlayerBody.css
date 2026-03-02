@@ -1,0 +1,10 @@
+
+.music-player-body-container {
+    display: flex;
+    flex-direction: row;
+
+    margin: 30px;
+
+    flex: 1 0 0;
+
+}

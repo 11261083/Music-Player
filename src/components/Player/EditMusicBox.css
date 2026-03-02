@@ -1,0 +1,58 @@
+.edit-music-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    min-width: 250px;
+    height: 240px;
+    margin: 40px 0 0 10px;
+    border-radius: 10px;
+
+    background-color: hsl(0, 0%, 20%);
+
+    overflow: auto;
+}
+
+/* For Chrome, Safari, Edge, and Opera */
+.edit-music-box::-webkit-scrollbar {
+    display: none;
+}
+
+
+.edit-music-box.hidden {
+    display: none;
+}
+
+.edit-music-box p {
+    margin: 0;
+    margin-left: 10px;
+    margin-top: 10px;
+
+    color: white;
+}
+
+.edit-music-box input {
+    border: 0;
+    border-bottom: 2px solid black;
+    margin: 0 10px 10px 10px;
+    background-color: hsl(0, 0%, 20%);
+    color: white;
+
+    outline: none;
+}
+
+.edit-btn-box {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.edit-btn-box button {
+    background-color: inherit;
+    color: hsl(0, 0%, 100%);
+    flex: 1 0 0;
+}
+
+.edit-btn-box button:hover {
+    background-color: hsl(0, 0%, 30%);
+}

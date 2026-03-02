@@ -1,0 +1,9 @@
+.music-player-app {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 100dvw;
+    min-height: 100dvh;
+
+    background-color: black;
+}
