@@ -1,6 +1,7 @@
 import './MusicItemContent.css';
 
 export default function MusicItemContent({
+    customPlaylistSelectedItems,
     sortType,
     sortDesc,
     customPlaylistTitle,
@@ -11,7 +12,7 @@ export default function MusicItemContent({
     handleSortOrderBtn,
     handleMusicItemClick,
     handlePlaylistTitleChange,
-    handleCheckboxChange,
+    handleCustomPlaylistItemSelectionBtn,
     handlePlaylistEditSave,
     handlePlaylistEditCancel
 }) {
@@ -29,10 +30,10 @@ export default function MusicItemContent({
             <p>Playlist Title:</p>
             <input value={customPlaylistTitle} onChange={handlePlaylistTitleChange} className='custom-playlist-editer-name'></input>
             {sortedMusicsList.map((item) => {
-                return (
+                return(
                     <div key={item.name} className='custom-playlist-editer-items'>
-                        <input type='checkbox' id={item.id} onChange={handleCheckboxChange}/>
-                        <label htmlFor={item.id}>{item.name} • {item.artist} • {item.released}</label>
+                        {customPlaylistSelectedItems.includes(item.id) ? <i class="fa-solid fa-circle-check"></i> : <i class="fa-regular fa-circle"></i>}
+                        <button onClick={() => handleCustomPlaylistItemSelectionBtn(item.id)}>{item.name} • {item.artist} • {item.released}</button>
                     </div>
                 );
             })}

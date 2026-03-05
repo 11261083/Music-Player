@@ -11,7 +11,7 @@ export default function EditMusicBox({ showEditBox, setShowEditBox, currentMusic
     const [musicRelease, setMusicRelease] = useState("");
 
     useEffect(() => {
-        if(currentMusic !== null) {
+        if(currentMusic) {
             setMusicTitle(currentMusic.name);
             setMusicArtist(currentMusic.artist);
             setMusicAlbum(currentMusic.album);
@@ -37,7 +37,7 @@ export default function EditMusicBox({ showEditBox, setShowEditBox, currentMusic
     }
 
     function handleEditSave() {
-        if(currentMusic === null) return;
+        if(!currentMusic) return;
         
         const newMusic = {
             id: currentMusic.id,
@@ -57,7 +57,7 @@ export default function EditMusicBox({ showEditBox, setShowEditBox, currentMusic
     return(
         <div className={`edit-music-box ${showEditBox ? "" : "hidden"}`}>
             <p>Title</p>
-            <input value={musicTitle} onChange={handleTitleEdit} ></input>
+            <input value={musicTitle} onChange={handleTitleEdit}></input>
             <p>Artist</p>
             <input value={musicArtist} onChange={handleArtistEdit}></input>
             <p>Album</p>

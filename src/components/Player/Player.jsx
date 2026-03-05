@@ -1,47 +1,42 @@
 import './Player.css';
 
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import {StateContext} from '../../MusicPlayerApp.jsx';
 import EditMusicBox from './EditMusicBox.jsx';
 
 export default function Player() {
 
-    const playingMusics = useContext(StateContext).playingMusicsProvider;
-    const currentIndex = useContext(StateContext).currentIndexProvider;
-    const setCurrentIndex = useContext(StateContext).setCurrentIndexProvider;
-    const musicsList = useContext(StateContext).musicsListProvider;
+    const playingMusicsList = useContext(StateContext).playingMusicsListProvider;
+    const currentPlayingMusicIndex = useContext(StateContext).currentPlayingMusicIndexProvider;
+    const setCurrentPlayingMusicIndex = useContext(StateContext).setCurrentPlayingMusicIndexProvider;
     const setMusicsList = useContext(StateContext).setMusicsListProvider;
 
     const [showEditBox, setShowEditBox] = useState(false);
 
-    const [imgSrc, setImgSrc] = useState(null);
-    const audio = document.querySelector("audio");
-    const fallbackSrc = "/poster/empty-poster.png";
-
-    const queueMusics = playingMusics.map(id => musicsList.find(music => music.id === id));
-
-    useEffect(() => {
-        if(currentIndex !== null) setImgSrc(queueMusics[currentIndex].poster);
-    }, [playingMusics, currentIndex]);
+    const musicPosterRef = useRef(null);
+    const audioPlayerRef = useRef(null);
+    const fallbackPosterImgSrc = "/poster/empty-poster.png";
     
     useEffect(() => {
-        if(audio) {
-            audio.play();
+        if(audioPlayerRef.current) {
+            audioPlayerRef.current.play();
         }
-    }, [currentIndex, audio]);
+
+        musicPosterRef.current.src = playingMusicsList[currentPlayingMusicIndex] ? playingMusicsList[currentPlayingMusicIndex].poster : null;
+    }, [playingMusicsList, currentPlayingMusicIndex]);
 
     function handleFallbackImg() {
-        setImgSrc(fallbackSrc);
+        musicPosterRef.current.src = fallbackPosterImgSrc;
     }
 
     function handlePlayPreviousBtn() {
-        if(currentIndex === 0) setCurrentIndex(queueMusics.length - 1);
-        else setCurrentIndex(currentIndex - 1);
+        if(currentPlayingMusicIndex === 0) setCurrentPlayingMusicIndex(playingMusicsList.length - 1);
+        else setCurrentPlayingMusicIndex(currentPlayingMusicIndex - 1);
     }
 
     function handlePlayNextBtn() {
-        if(currentIndex === queueMusics.length-1) setCurrentIndex(0);
-        else setCurrentIndex(currentIndex + 1);
+        if(currentPlayingMusicIndex === playingMusicsList.length-1) setCurrentPlayingMusicIndex(0);
+        else setCurrentPlayingMusicIndex(currentPlayingMusicIndex + 1);
     }
 
     function handleEditOpenBtn() {
@@ -49,24 +44,23 @@ export default function Player() {
 
     }
 
-    const currentMusic = currentIndex === null ? null : queueMusics[currentIndex];    // shallow copy issue
-
-    const musicInfoRender = currentIndex !== null ? (
+    const musicInfoRender = currentPlayingMusicIndex !== null ? (
         <>
             <div className='music-info'>
-                <div className='music-name'>{currentMusic.name}</div>
-                <div className='music-artist'>{currentMusic.artist}</div>
+                <div className='music-name'>{playingMusicsList[currentPlayingMusicIndex].name}</div>
+                <div className='music-artist'>{playingMusicsList[currentPlayingMusicIndex].artist}</div>
 
-                <div className='music-album'>{`Album • ${currentMusic.album}`}</div>
-                <div className='music-composer'>{`Composer • ${currentMusic.composer}`}</div>
-                <div className='music-released'>{`Released • ${currentMusic.released}`}</div>
+                <div className='music-album'>{`Album • ${playingMusicsList[currentPlayingMusicIndex].album}`}</div>
+                <div className='music-composer'>{`Composer • ${playingMusicsList[currentPlayingMusicIndex].composer}`}</div>
+                <div className='music-released'>{`Released • ${playingMusicsList[currentPlayingMusicIndex].released}`}</div>
             </div>
             <div className='music-player'>
                 <audio
-                    src={queueMusics[currentIndex].url}
+                    src={playingMusicsList[currentPlayingMusicIndex].url}
+                    ref={audioPlayerRef}
                     controls={true}
                     onEnded={() => handlePlayNextBtn()}
-                ></audio>
+                />
                 <button onClick={handlePlayPreviousBtn}><i className="fa-solid fa-backward"></i></button>
                 <button onClick={handlePlayNextBtn}><i className="fa-solid fa-forward"></i></button>
             </div>
@@ -76,7 +70,12 @@ export default function Player() {
     return(
         <div className='player-container'>
             <div className='player-box'>
-                <img src={imgSrc ? imgSrc : fallbackSrc} onError={handleFallbackImg} className='music-poster'></img>
+                <img 
+                    src={fallbackPosterImgSrc} 
+                    onError={handleFallbackImg} 
+                    ref={musicPosterRef} 
+                    className='music-poster'
+                />
                 <div className='music-body'>
                     {musicInfoRender}
                 </div>
@@ -84,7 +83,12 @@ export default function Player() {
                     <button className='edit-enable' onClick={handleEditOpenBtn}><i className="fa-solid fa-ellipsis-vertical"></i></button>
                 </div>
             </div>
-            <EditMusicBox showEditBox={showEditBox} setShowEditBox={setShowEditBox} currentMusic={currentMusic} setMusicsList={setMusicsList} />
+            <EditMusicBox 
+                showEditBox={showEditBox} 
+                setShowEditBox={setShowEditBox} 
+                currentMusic={playingMusicsList[currentPlayingMusicIndex] || null} 
+                setMusicsList={setMusicsList} 
+            />
         </div>
     );
 }

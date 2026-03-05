@@ -1,5 +1,5 @@
 import './MusicPlayerBody.css';
-import React, {useState, useRef, useContext} from 'react';
+import React, {useState, useContext, useMemo} from 'react';
 import {StateContext} from '../../MusicPlayerApp.jsx';
 import PlaylistContainer from './Playlist/PlaylistContainer.jsx';
 import MusicItemContent from './MusicItem/MusicItemContent.jsx';
@@ -8,8 +8,8 @@ import MusicItemContent from './MusicItem/MusicItemContent.jsx';
 export default function MusicPlayerBody() {
 
     const musicsList = useContext(StateContext).musicsListProvider;
-    const setPlayingMusics = useContext(StateContext).setPlayingMusicsProvider;
-    const setCurrentIndex = useContext(StateContext).setCurrentIndexProvider;
+    const setPlayingMusicsList = useContext(StateContext).setPlayingMusicsListProvider;
+    const setCurrentPlayingMusicIndex = useContext(StateContext).setCurrentPlayingMusicIndexProvider;
 
     const [playlists, setPlaylists] = useState([{title: "test", list: [1]}]);
     const [currentCategory, setCurrentCategory] = useState("artist");
@@ -19,25 +19,59 @@ export default function MusicPlayerBody() {
 
     const [editingPlaylist, setEditingPlaylist] = useState(false);
     const [customPlaylistTitle, setCustomPlaylistTitle] = useState("");
-    const checkedIds = useRef([]);
+    const [customPlaylistSelectedItems, setCustomPlaylistSelectedItems] = useState([]);
 
-    const categoryItemsList = {
-        album: [],
-        artist: [],
-        released: [],
-    };
+    const categoryItemsList = useMemo(() => {
+        const categoryItemsListMemo = {
+            album: [],
+            artist: [],
+            released: [],
+        };
 
-    musicsList.forEach((music) => {
-        if(categoryItemsList.album.indexOf(music.album.trim()) === -1) {
-            categoryItemsList.album.push(music.album.trim());
+        musicsList.forEach((music) => {
+            if(categoryItemsListMemo.album.indexOf(music.album.trim()) === -1) {
+                categoryItemsListMemo.album.push(music.album.trim());
+            }
+            if(categoryItemsListMemo.artist.indexOf(music.artist.trim()) === -1) {
+                categoryItemsListMemo.artist.push(music.artist.trim());
+            }
+            if(categoryItemsListMemo.released.indexOf(music.released) === -1) {
+                categoryItemsListMemo.released.push(music.released);
+            }
+        });
+
+        return categoryItemsListMemo;
+    }, [musicsList]);
+
+    const filteredAndSortedList = useMemo(() => {
+        const filteredList = currentCategory === "playlist" 
+            ? musicsList.filter((music) => {
+                return playlists[selectedCategoryItem] ? playlists[selectedCategoryItem].list.includes(music.id) : false;
+            }) 
+            : musicsList.filter((music) => {
+                return music[currentCategory] === selectedCategoryItem;
+            });
+
+        return [...filteredList].sort((a, b) => sortListByTypeAndOrder(a, b));
+    }, [currentCategory, musicsList, playlists, selectedCategoryItem, sortType, sortDesc]);
+
+    const sortedMusicsList = useMemo(() => {
+        return [...musicsList].sort((a, b) => sortListByTypeAndOrder(a, b));
+    }, [musicsList, sortType, sortDesc]);
+
+    function sortListByTypeAndOrder(a, b) {
+        switch(sortType) {
+            case "name": 
+                return sortDesc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+            case "artist":
+                return sortDesc ? a.artist.localeCompare(b.artist) : b.artist.localeCompare(a.artist);
+            case "release":
+                return sortDesc ? a.released - b.released : b.released - a.released;
+            default:
+                return a.id - b.id;
         }
-        if(categoryItemsList.artist.indexOf(music.artist.trim()) === -1) {
-            categoryItemsList.artist.push(music.artist.trim());
-        }
-        if(categoryItemsList.released.indexOf(music.released) === -1) {
-            categoryItemsList.released.push(music.released);
-        }
-    });
+    }
+
 
     function handlePlaylistCategoriesBtn(category) {
         setCurrentCategory(category); 
@@ -56,10 +90,10 @@ export default function MusicPlayerBody() {
         setSelectedCategoryItem(item); 
     }
 
-    function handleNewCategoryBtn() {
+    function handleNewPlaylistBtn() {
         setEditingPlaylist(true); 
         setCustomPlaylistTitle(''); 
-        checkedIds.current = [];
+        setCustomPlaylistSelectedItems([]);
     }
 
     function handlePlaylistDelete(index) {
@@ -76,21 +110,21 @@ export default function MusicPlayerBody() {
     }
 
     function handleMusicItemClick(index) {
-        setPlayingMusics(filteredAndSortedList.map(music => music.id)); 
-        setCurrentIndex(index)
+        setPlayingMusicsList(filteredAndSortedList); 
+        setCurrentPlayingMusicIndex(index)
     }
-
 
     function handlePlaylistTitleChange(e) {
         setCustomPlaylistTitle(e.target.value);
     }
 
-    function handleCheckboxChange(e) {
-        if(e.target.checked) {
-            checkedIds.current.push(Number(e.target.id));
+    function handleCustomPlaylistItemSelectionBtn(id) {
+
+        if(customPlaylistSelectedItems.includes(id)) {
+            setCustomPlaylistSelectedItems(prev => prev.filter((value) => value !== id));
         }
         else {
-            checkedIds.current = checkedIds.current.filter((id) => Number(e.target.id) !== id);
+            setCustomPlaylistSelectedItems(prev => [...prev, id])
         }
     }
 
@@ -107,12 +141,12 @@ export default function MusicPlayerBody() {
             return;
         }
 
-        if(checkedIds.current.length === 0) {
+        if(customPlaylistSelectedItems.length === 0) {
             alert("Please add at least 1 items to the Playlist");
             return;
         }
 
-        setPlaylists(prev => [...prev, {title: customPlaylistTitle, list: checkedIds.current}])
+        setPlaylists(prev => [...prev, {title: customPlaylistTitle, list: customPlaylistSelectedItems}])
         setCustomPlaylistTitle('');
         setEditingPlaylist(false);
     }
@@ -120,52 +154,8 @@ export default function MusicPlayerBody() {
     function handlePlaylistEditCancel() {
         setCustomPlaylistTitle(""); 
         setEditingPlaylist(false); 
-        checkedIds.current = [];
+        setCustomPlaylistSelectedItems([]);
     }
-
-
-    const filteredList = currentCategory === "playlist" 
-    ? musicsList.filter((music) => {
-        return playlists[selectedCategoryItem] ? playlists[selectedCategoryItem].list.includes(music.id) : false;
-    }) 
-    : musicsList.filter((music) => {
-        return music[currentCategory] === selectedCategoryItem;
-    });
-
-    const filteredAndSortedList = filteredList.sort((a, b) => {
-        switch(sortType) {
-            case "name": 
-                return sortDesc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-                break;
-            case "artist":
-                return sortDesc ? a.artist.localeCompare(b.artist) : b.artist.localeCompare(a.artist);
-                break; 
-            case "release":
-                return sortDesc ? a.released - b.released : b.released - a.released;
-                break
-            default:
-                return a.id - b.id;
-                break;
-        }
-    });
-
-    const sortedMusicsList = musicsList.sort((a, b) => {
-        switch(sortType) {
-            case "name":
-                return sortDesc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-                break;
-            case "artist":
-                return sortDesc ? a.artist.localeCompare(b.artist) : b.artist.localeCompare(a.artist);
-                break;
-            case "release":
-                return sortDesc ? a.released - b.released : b.released - a.released;
-                break;
-            default:
-                return a.id - b.id;
-                break;
-        }
-    });
-
 
     return(
         <div className='music-player-body-container'>
@@ -176,10 +166,11 @@ export default function MusicPlayerBody() {
                 handlePlaylistCategoriesBtn={handlePlaylistCategoriesBtn}
                 handleCustomPlaylistItemsBtn={handleCustomPlaylistItemsBtn}
                 handleCategoryPlaylistItemsBtn={handleCategoryPlaylistItemsBtn}
-                handleNewCategoryBtn={handleNewCategoryBtn}
+                handleNewPlaylistBtn={handleNewPlaylistBtn}
                 handlePlaylistDelete={handlePlaylistDelete}
             />
             <MusicItemContent 
+                customPlaylistSelectedItems={customPlaylistSelectedItems}
                 sortType={sortType}
                 sortDesc={sortDesc}
                 customPlaylistTitle={customPlaylistTitle}
@@ -190,7 +181,7 @@ export default function MusicPlayerBody() {
                 handleSortOrderBtn={handleSortOrderBtn}
                 handleMusicItemClick={handleMusicItemClick}
                 handlePlaylistTitleChange={handlePlaylistTitleChange}
-                handleCheckboxChange={handleCheckboxChange}
+                handleCustomPlaylistItemSelectionBtn={handleCustomPlaylistItemSelectionBtn}
                 handlePlaylistEditSave={handlePlaylistEditSave}
                 handlePlaylistEditCancel={handlePlaylistEditCancel}
             />

@@ -1,6 +1,6 @@
 import './MusicPlayer.css';
 import musics from './assets/musics.json';
-import React, {useState, useEffect, createContext} from 'react';
+import React, {useState, createContext} from 'react';
 
 import Player from './components/Player/Player.jsx';
 import Body from './components/Body/MusicPlayerBody.jsx';
@@ -9,14 +9,9 @@ export const StateContext = createContext();
 
 export default function MusicPlayerApp() {
 
-    const [musicsList, setMusicsList] = useState([]);
-    const [playingMusics, setPlayingMusics] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(null);
-    
-    useEffect(() => {
-        
-        setMusicsList(musics);
-    }, []);
+    const [musicsList, setMusicsList] = useState(musics);
+    const [playingMusicsList, setPlayingMusicsList] = useState([]);
+    const [currentPlayingMusicIndex, setCurrentPlayingMusicIndex] = useState(null);
 
     return(
         <div className='music-player-app'>
@@ -24,10 +19,10 @@ export default function MusicPlayerApp() {
                 {
                     musicsListProvider: musicsList, 
                     setMusicsListProvider: setMusicsList, 
-                    playingMusicsProvider: playingMusics, 
-                    setPlayingMusicsProvider: setPlayingMusics, 
-                    currentIndexProvider: currentIndex, 
-                    setCurrentIndexProvider: setCurrentIndex
+                    playingMusicsListProvider: playingMusicsList, 
+                    setPlayingMusicsListProvider: setPlayingMusicsList, 
+                    currentPlayingMusicIndexProvider: currentPlayingMusicIndex, 
+                    setCurrentPlayingMusicIndexProvider: setCurrentPlayingMusicIndex
                 } 
             }>
                 <Player />

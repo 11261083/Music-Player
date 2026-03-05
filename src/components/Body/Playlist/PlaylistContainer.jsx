@@ -7,25 +7,25 @@ export default function PlaylistContainer({
     handlePlaylistCategoriesBtn,
     handleCustomPlaylistItemsBtn,
     handleCategoryPlaylistItemsBtn,
-    handleNewCategoryBtn,
+    handleNewPlaylistBtn,
     handlePlaylistDelete,
 }) {
 
     const categoryItemsRender = currentCategory === "playlist" 
-    ? playlists.map((item, index) => {
-        return (
-            <div key={item.title} className='custom-playlist-items-box'>
-                <button onClick={() => handleCustomPlaylistItemsBtn(index, item.title)} className='custom-playlist-item-btn'>{item.title}</button>
-                <button onClick={() => handlePlaylistDelete(index)}><i className="fa-solid fa-trash-can"></i></button>
-            </div>
-        );
-    }) 
-    : categoryItemsList[currentCategory].sort((a, b) => {
-        if(currentCategory === "released") return a - b;
-        else return a.localeCompare(b);
-    }).map((item) => {
-        return (<button key={item} onClick={() => handleCategoryPlaylistItemsBtn(item)}>{item}</button>);
-    });
+        ? playlists.map((item, index) => {
+            return (
+                <div key={item.title} className='custom-playlist-items-box'>
+                    <button onClick={() => handleCustomPlaylistItemsBtn(index, item.title)} className='custom-playlist-item-btn'>{item.title}</button>
+                    <button onClick={() => handlePlaylistDelete(index)}><i className="fa-solid fa-trash-can"></i></button>
+                </div>
+            );
+        }) 
+        : [...categoryItemsList[currentCategory]].sort((a, b) => {
+            if(currentCategory === "released") return a - b;
+            else return a.localeCompare(b);
+        }).map((item) => {
+            return (<button key={item} onClick={() => handleCategoryPlaylistItemsBtn(item)}>{item}</button>);
+        });
 
     return(
         <div className='playlist-categories-container'>
@@ -37,7 +37,7 @@ export default function PlaylistContainer({
             </div>
             <div className='category-items'>
                 {categoryItemsRender}
-                {currentCategory === "playlist" ? <button onClick={handleNewCategoryBtn}>+</button> : null}
+                {currentCategory === "playlist" ? <button onClick={handleNewPlaylistBtn}>+</button> : null}
             </div>
         </div>
     );
