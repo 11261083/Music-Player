@@ -1,16 +1,9 @@
-# React + Vite
+# Music Player Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React practice project, with focus on handling arrays and objects to render lists and use basic Reack hooks like useState, useEffect, useRef and useContext.
 
-Currently, two official plugins are available:
+## Abstract
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project is based on music applications, focusing on an interface where the user can organize playlists, list items according to predefined categories, and also create custom categories defined by the user.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Although it is a project that will be developed for the Web environment, the idea of the application is closer to a local device app. The music files and their metadata will be preloaded, as if the user already had them stored on their local device.
